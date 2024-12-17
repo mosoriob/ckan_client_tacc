@@ -1,0 +1,116 @@
+# Poetry pyproject.toml: https://python-poetry.org/docs/pyproject/
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "ckan-client-tacc"
+version = "0.1.0"
+description = "Awesome `ckan-client-tacc` is a Python cli/package created with https://github.com/Undertone0809/python-package-template"
+readme = "README.md"
+authors = ["In-For-Disaster-Analytics <maxiosorio@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/in_for_disaster_analytics/ckan-client-tacc"
+homepage = "https://github.com/in_for_disaster_analytics/ckan-client-tacc"
+
+# Keywords description https://python-poetry.org/docs/pyproject/#keywords
+keywords = []  #! Update me
+
+# Pypi classifiers: https://pypi.org/classifiers/
+classifiers = [  #! Update me
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+]
+
+[tool.poetry.scripts]
+# Entry points for the package https://python-poetry.org/docs/pyproject/#scripts
+"ckan-client-tacc" = "ckan_client_tacc.__main__:app"
+
+
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+typer = {extras = ["all"], version = "^0.4.0"}
+rich = "^10.14.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-html = "^3.1.1"
+pytest-cov = "^3.0.0"
+bandit = "^1.7.1"
+black = "^22.12"
+isort = {extras = ["colors"], version = "^5.10.1"}
+pre-commit = "^2.15.0"
+coverage = "^6.1.2"
+coverage-badge = "^1.1.0"
+
+
+
+
+[tool.black]
+# https://github.com/psf/black
+target-version = ["py39"]
+line-length = 88
+color = true
+
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | env
+    | venv
+)/
+'''
+
+[tool.isort]
+# https://github.com/timothycrosley/isort/
+py_version = 39
+line_length = 88
+
+sections = ["FUTURE", "TYPING", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+include_trailing_comma = true
+profile = "black"
+multi_line_output = 3
+indent = 4
+color_output = true
+
+
+[tool.pytest.ini_options]
+# https://docs.pytest.org/en/6.2.x/customize.html#pyproject-toml
+# Directories that are not visited by pytest collector:
+norecursedirs =["hooks", "*.egg", ".eggs", "dist", "build", "docs", ".tox", ".git", "__pycache__"]
+doctest_optionflags = ["NUMBER", "NORMALIZE_WHITESPACE", "IGNORE_EXCEPTION_DETAIL"]
+
+# Extra options:
+addopts = [
+  "--strict-markers",
+  "--tb=short",
+  "--doctest-modules",
+  "--doctest-continue-on-failure",
+]
+
+[tool.coverage.run]
+source = ["tests"]
+
+[coverage.paths]
+source = "ckan-client-tacc"
+
+[coverage.run]
+branch = true
+
+[coverage.report]
+fail_under = 50
+show_missing = true
