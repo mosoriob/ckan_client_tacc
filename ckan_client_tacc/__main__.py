@@ -1,65 +1,28 @@
-# type: ignore[attr-defined]
-from enum import Enum
-from random import choice
-from typing import Optional
-
 import typer
 from rich.console import Console
 
-from ckan_client_tacc import version
-from ckan_client_tacc.example import hello
-
-
-class Color(str, Enum):
-    white = "white"
-    red = "red"
-    cyan = "cyan"
-    magenta = "magenta"
-    yellow = "yellow"
-    green = "green"
-
+from ckan_client_tacc import admin_subcommand, version
 
 app = typer.Typer(
     name="ckan-client-tacc",
-    help="Awesome `ckan-client-tacc` is a Python cli/package created with https://github.com/Undertone0809/python-package-template",
+    help="CKAN Client TACC is a Python package designed to manage the CKAN instance of TACC",
     add_completion=False,
 )
+
+app.add_typer(
+    admin_subcommand.app,
+    name="admin",
+    help="Manage the CKAN instance of TACC",
+)
+
 console = Console()
 
 
 def version_callback(print_version: bool) -> None:
     """Print the version of the package."""
     if print_version:
-        console.print(f"[yellow]ckan-client-tacc[/] version: [bold blue]{version}[/]")
+        console.print(f"[yellow]datafest-archive[/] version: [bold blue]{version}[/]")
         raise typer.Exit()
-
-
-@app.command(name="")
-def main(
-    name: str = typer.Option(..., help="Person to greet."),
-    color: Optional[Color] = typer.Option(
-        None,
-        "-c",
-        "--color",
-        "--colour",
-        case_sensitive=False,
-        help="Color for print. If not specified then choice will be random.",
-    ),
-    print_version: bool = typer.Option(
-        None,
-        "-v",
-        "--version",
-        callback=version_callback,
-        is_eager=True,
-        help="Prints the version of the ckan-client-tacc package.",
-    ),
-) -> None:
-    """Print a greeting with a giving name."""
-    if color is None:
-        color = choice(list(Color))
-
-    greeting: str = hello(name)
-    console.print(f"[bold {color}]{greeting}[/]")
 
 
 if __name__ == "__main__":

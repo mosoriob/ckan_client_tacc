@@ -3,6 +3,17 @@ from typing import Dict, Optional
 import requests
 
 
+def get_user_by_username(ckan_url: str, api_key: str, username: str) -> Optional[Dict]:
+    url = f"{ckan_url}/api/3/action/user_show"
+    headers = {"Authorization": api_key, "Content-Type": "application/json"}
+    try:
+        response = requests.get(url, headers=headers, params={"id": username})
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        raise e
+
+
 def get_user_by_id(ckan_url: str, api_key: str, user_id: str) -> Optional[Dict]:
     """
     Retrieve user information by user ID from CKAN.
