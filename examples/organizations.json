@@ -1,0 +1,20 @@
+[
+  {
+    "name": "planet-texas-2050",
+    "title": "Planet Texas 2050",
+    "description": "Planet Texas 2050's interdisciplinary research teams work on designing solutions for stronger, more resilient communities. The initiative combines expertise from architects, archaeologists, city planners, public health experts, geologists, engineers, biologists, computer scientists, artists and community-based partners in an eight-year research program.",
+    "state": "active"
+  },
+  {
+    "name": "setx-uifl",
+    "title": "Southeast Texas Urban Integrated Field Lab",
+    "description": "Southeast Texas Urban Integrated Field Lab (SETx-UIFL) is a DOE-funded Urban Integrated Field Laboratory studying the Beaumont-Port Arthur area. The project focuses on Gulf Coast communities with industrial facilities and population change challenges.",
+    "state": "active"
+  },
+  {
+    "name": "dynamo",
+    "title": "DYNAMO",
+    "description": "Analysis and Model Integration MINT and Cookbooks",
+    "state": "active"
+  }
+]

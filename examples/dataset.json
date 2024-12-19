@@ -1,0 +1,108 @@
+[
+  {
+    "author": "",
+    "author_email": "",
+    "isopen": true,
+    "license_id": "cc-by",
+    "owner_org": "dynamo",
+    "license_title": "Creative Commons Attribution",
+    "license_url": "http://www.opendefinition.org/licenses/cc-by",
+    "name": "barton-springs-edwards-aquifer-groundwater-simulation-dataset",
+    "notes": "This dataset contains numerical simulation outputs from the MODFLOW-based groundwater availability model (GAM) for the Barton Springs segment of the Edwards Aquifer in Austin, Texas. It includes baseline, average, and user-customizable scenarios (M-B, M-A, and M-I) to assess the impact of drought conditions, water pumping, and recharge rates on groundwater resources. Key outputs include hydraulic head levels (hds), storage volumes (cbb), and pumping rates (cbb). The dataset was designed for use in groundwater management and planning by state agencies and stakeholders, focusing on sustainable water use under varying climatic and urban development conditions. The recharge zones and input configurations support analysis of drought impacts on water availability and ecosystem health.",
+    "private": false,
+    "state": "active",
+    "title": "Barton Springs Edwards Aquifer Groundwater Simulation Dataset",
+    "extras": [
+      {
+        "key": "spatial",
+        "value": "{         \"type\": \"Polygon\",         \"coordinates\": [           [             [               -97.730379,               30.3076             ],             [               -97.730379,               30.3074             ],             [               -97.730179,               30.3074             ],             [               -97.730179,               30.3076             ],             [               -97.730379,               30.3076             ]           ]         ]       }"
+      }
+    ],
+    "tags": [
+      {
+        "display_name": "Aquifer Storage",
+        "name": "Aquifer Storage",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "Barton Springs",
+        "name": "Barton Springs",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "Climate Variability",
+        "name": "Climate Variability",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "Drought Impact",
+        "name": "Drought Impact",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "Edwards Aquifer",
+        "name": "Edwards Aquifer",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "Groundwater",
+        "name": "Groundwater",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "Groundwater Availability Model",
+        "name": "Groundwater Availability Model",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "Hydraulic Head",
+        "name": "Hydraulic Head",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "MODFLOW",
+        "name": "MODFLOW",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "Recharge Zones",
+        "name": "Recharge Zones",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "Sustainable Water Management",
+        "name": "Sustainable Water Management",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "Texas Water Resources",
+        "name": "Texas Water Resources",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "Urban Development Impact",
+        "name": "Urban Development Impact",
+        "state": "active",
+        "vocabulary_id": null
+      },
+      {
+        "display_name": "Water Budget",
+        "name": "Water Budget",
+        "state": "active",
+        "vocabulary_id": null
+      }
+    ]
+  }
+]

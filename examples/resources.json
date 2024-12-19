@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://data.mint.isi.edu/files/sample-inputs-outputs/modflowInputs/BARTON_SPRINGS_2001_2010AVERAGE.ba6",
+    "name": "Basic (BAS6) Package for MODFLOW-2005",
+    "description": "Defines the basic model parameters and boundary conditions, including active, inactive, and constant-head cells for the Barton Springs simulation.",
+    "format": "BA6"
+  },
+  {
+    "url": "https://data.mint.isi.edu/files/sample-inputs-outputs/modflowInputs/BARTON_SPRINGS_2001_2010AVERAGE.bc6",
+    "name": "Boundary Condition File for MODFLOW-2005",
+    "description": "Specifies boundary condition parameters, including tolerances and head change limits, for the Barton Springs simulation.",
+    "format": "BC6"
+  },
+  {
+    "url": "https://data.mint.isi.edu/files/sample-inputs-outputs/modflowInputs/BARTON_SPRINGS_2001_2010AVERAGE.dis",
+    "name": "Discretization (DIS) Package for MODFLOW-2005",
+    "description": "Describes the model grid, including layers, rows, columns, and time steps, defining the spatial and temporal discretization for the Barton Springs simulation.",
+    "format": "DIS"
+  },
+  {
+    "url": "https://data.mint.isi.edu/files/sample-inputs-outputs/modflowInputs/BARTON_SPRINGS_2001_2010AVERAGE.drn",
+    "name": "Drain (DRN) Package for MODFLOW-2005",
+    "description": "Specifies drain locations and properties, simulating groundwater discharge to drains for the Barton Springs simulation.",
+    "format": "DRN"
+  },
+  {
+    "url": "https://data.mint.isi.edu/files/sample-inputs-outputs/modflowInputs/BARTON_SPRINGS_2001_2010AVERAGE.hf6",
+    "name": "Horizontal Flow Barrier (HFB6) Package for MODFLOW-2005",
+    "description": "Defines horizontal flow barriers, representing features like faults or low-permeability zones within the Barton Springs simulation.",
+    "format": "HFB6"
+  },
+  {
+    "url": "https://data.mint.isi.edu/files/sample-inputs-outputs/modflowInputs/BARTON_SPRINGS_2001_2010AVERAGE.oc",
+    "name": "Output Control (OC) Package for MODFLOW-2005",
+    "description": "Specifies the output controls, determining when and how simulation results are written for the Barton Springs simulation.",
+    "format": "OC"
+  },
+  {
+    "url": "https://data.mint.isi.edu/files/sample-inputs-outputs/modflowInputs/BARTON_SPRINGS_2001_2010AVERAGE.rch",
+    "name": "Recharge (RCH) Package for MODFLOW-2005",
+    "description": "Defines spatially distributed recharge rates, representing inputs such as precipitation or infiltration for the Barton Springs simulation.",
+    "format": "RCH"
+  },
+  {
+    "url": "https://data.mint.isi.edu/files/sample-inputs-outputs/modflowInputs/BARTON_SPRINGS_2001_2010AVERAGE.sip",
+    "name": "Strongly Implicit Procedure (SIP) Package for MODFLOW-2005",
+    "description": "Specifies parameters for the Strongly Implicit Procedure numerical solver used in the Barton Springs simulation.",
+    "format": "SIP"
+  },
+  {
+    "url": "https://data.mint.isi.edu/files/sample-inputs-outputs/modflowInputs/BARTON_SPRINGS_2001_2010AVERAGE.wel",
+    "name": "Well (WEL) Package for MODFLOW-2005",
+    "description": "Defines well locations, layers, and pumping rates, specifying both extraction and injection wells for the Barton Springs simulation.",
+    "format": "WEL"
+  }
+]

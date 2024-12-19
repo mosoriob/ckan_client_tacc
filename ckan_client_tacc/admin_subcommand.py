@@ -4,8 +4,6 @@ import os
 import typer
 
 from ckan_client_tacc.client.organizations.members.add import (
-    Member,
-    add_user_to_org_api,
     convert_member_to_user,
     get_members,
 )

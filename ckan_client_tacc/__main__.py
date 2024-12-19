@@ -1,7 +1,12 @@
 import typer
 from rich.console import Console
 
-from ckan_client_tacc import admin_subcommand, version
+from ckan_client_tacc import (
+    admin_subcommand,
+    dataset_subcommand,
+    organization_subcommand,
+    version,
+)
 
 app = typer.Typer(
     name="ckan-client-tacc",
@@ -12,7 +17,19 @@ app = typer.Typer(
 app.add_typer(
     admin_subcommand.app,
     name="admin",
-    help="Manage the CKAN instance of TACC",
+    help="Manage the CKAN instance of TACC data discovery",
+)
+
+app.add_typer(
+    organization_subcommand.app,
+    name="organization",
+    help="Manage the organizations of TACC data discovery",
+)
+
+app.add_typer(
+    dataset_subcommand.app,
+    name="dataset",
+    help="Manage the datasets of TACC data discovery",
 )
 
 console = Console()
