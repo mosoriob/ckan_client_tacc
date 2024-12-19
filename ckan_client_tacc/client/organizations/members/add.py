@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 import requests
 
+from ckan_client_tacc.client.users.get import get_user_by_id
 from ckan_client_tacc.models.tacc.user import TaccUser
 
 
@@ -39,3 +40,9 @@ def get_members(ckan_url: str, api_key: str, org_id: str) -> list[Member]:
     response = requests.get(url, headers=headers, params={"id": org_id})
     response.raise_for_status()
     return [Member(id=m[0], type=m[1], role=m[2]) for m in response.json()["result"]]
+
+
+def convert_member_to_user(ckan_url: str, api_key: str, member: Member) -> TaccUser:
+    user = get_user_by_id(ckan_url, api_key, member.id)
+    print(user)
+    return TaccUser(user)

@@ -6,10 +6,13 @@ import typer
 from ckan_client_tacc.client.organizations.members.add import (
     Member,
     add_user_to_org_api,
+    convert_member_to_user,
     get_members,
 )
+from ckan_client_tacc.client.users.create import create_user_api
 from ckan_client_tacc.client.users.get import get_user_by_id, get_user_by_username
 from ckan_client_tacc.models.tacc.user import ORG_ALLOCATION_MAPPING, Response, TaccUser
+from ckan_client_tacc.models.UserMapper import UserMapper
 
 app = typer.Typer()
 
@@ -22,35 +25,30 @@ if not API_KEY or not CKAN_URL:
 
 
 def create_user(user: TaccUser):
-    pass
+    create_user_api(CKAN_URL, API_KEY, UserMapper.map_to_ckan_user_request(user))
 
 
 def get_or_create_user(user: TaccUser):
     try:
-        get_user_by_username(CKAN_URL, API_KEY, user.username)
+        get_user_by_username(CKAN_URL, API_KEY, user.name)
     except Exception as e:
-        print(f"User {user.username} does not exist, creating...")
-        create_user(user)
+        print(f"User does not exist, creating...")
+        create_user_api(CKAN_URL, API_KEY, UserMapper.map_to_ckan_user_request(user))
 
 
 def add_user_to_org(user: TaccUser, org_id: str):
-    print(f"Adding user {user.username} to organization {org_id}")
-
-
-def convert_member_to_user(member: Member) -> TaccUser:
-    user = get_user_by_id(CKAN_URL, API_KEY, member.id)
-    return TaccUser(user)
+    print(f"Adding user {user.name} to organization {org_id}")
 
 
 def sync_tacc_allocations_org(allocation_id: str, org_id: str, folder: str):
     data = read_allocation_file(allocation_id, folder)
     members = get_members(CKAN_URL, API_KEY, org_id)
-    users_members = [convert_member_to_user(member) for member in members]
-    response = Response(data)
-    for user in response.users:
+
+    users = [convert_member_to_user(CKAN_URL, API_KEY, member) for member in members]
+    for user in users:
         get_or_create_user(user)
-        if user not in users_members:
-            add_user_to_org(user, org_id)
+        # if user not in users_members:
+        #     add_user_to_org(user, org_id)
 
 
 def read_allocation_file(allocation_id: str, folder: str) -> dict:

@@ -1,17 +1,31 @@
 from dataclasses import asdict
 from typing import Dict, List
 
+from ckan_client_tacc.client.users.create import CkanUserRequest
 from ckan_client_tacc.models.ckan.user import CkanUser
 from ckan_client_tacc.models.tacc.user import TaccUser
 
 ORG_ALLOCATION_MAPPING = {
     "planet-texas-2050": "BCS2411",
-    "SETx-UIFL": "CA23001",
+    "setx-uifl": "CA23001",
     "dynamo": "BCS24008",
 }
 
 
 class UserMapper:
+    @staticmethod
+    def map_to_ckan_user_request(tacc_user: TaccUser) -> CkanUserRequest:
+        return CkanUserRequest(
+            name=tacc_user.username,
+            email=tacc_user.email,
+            password=tacc_user.password,
+            fullname=f"{tacc_user.first_name} {tacc_user.last_name}",
+            about=None,
+            image_url=None,
+            id=None,
+            plugin_extras=None,
+        )
+
     @staticmethod
     def map_to_ckan_user(tacc_user: TaccUser) -> CkanUser:
         """Map a TaccUser to a CKAN User."""
