@@ -18,7 +18,7 @@ def test_tacc_user_creation():
     assert user.id == "123"
     assert user.username == "testuser"
     assert user.role == "user"
-    assert user.first_name == "Test"
+    assert user.firstName == "Test"
     assert user.last_name == "User"
     assert user.email == "test@example.com"
 
@@ -53,7 +53,7 @@ def test_response_from_response():
     assert response.users[0].id == "123"
     assert response.users[0].username == "user1"
     assert response.users[0].role == "admin"
-    assert response.users[0].first_name == "John"
+    assert response.users[0].firstName == "John"
     assert response.users[0].last_name == "Doe"
     assert response.users[0].email == "john@example.com"
 
@@ -61,7 +61,7 @@ def test_response_from_response():
     assert response.users[1].id == "456"
     assert response.users[1].username == "user2"
     assert response.users[1].role == "user"
-    assert response.users[1].first_name == "Jane"
+    assert response.users[1].firstName == "Jane"
     assert response.users[1].last_name == "Smith"
     assert response.users[1].email == "jane@example.com"
 

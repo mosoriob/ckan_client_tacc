@@ -29,31 +29,25 @@ def create_user(user: PortalXUser):
 
 def get_or_create_user(user: PortalXUser):
     try:
-        get_user_by_username(CKAN_URL, API_KEY, user.name)
+        get_user_by_username(CKAN_URL, API_KEY, user.username)
     except Exception as e:
-        print(f"User does not exist, creating...")
-        create_user_api(CKAN_URL, API_KEY, UserMapper.map_to_ckan_user_request(user))
+        ckan_user = UserMapper.map_to_ckan_user_request(user)
+        create_user_api(CKAN_URL, API_KEY, ckan_user)
 
 
 def add_user_to_org(user: PortalXUser, org_id: str):
     print(f"Adding user {user.name} to organization {org_id}")
 
 
+def create_users_on_cr(portalx_users: List[PortalXUser]):
+    for portalx_user in portalx_users:
+        get_or_create_user(portalx_user)
+
+
 def sync_tacc_allocations_org(org_id: OrganizationEnum, json_file: str):
     print(f"Syncing {org_id} allocations from folder {json_file}")
     tacc_users = read_tacc_allocation_users(json_file)
-    print(f"Found {len(tacc_users)} users")
-    org_members = get_members(CKAN_URL, API_KEY, org_id.value)
-    print(f"Found {len(org_members)} members")
-    org_members_users = [
-        convert_member_to_user(CKAN_URL, API_KEY, member) for member in org_members
-    ]
-    print(f"Found {len(org_members_users)} members")
-    for user in tacc_users:
-        print(user)
-        # get_or_create_user(user)
-        # if user not in org_members_users:
-        #    add_user_to_org(user, org_id)
+    create_users_on_cr(tacc_users)
 
 
 def read_tacc_allocation_users(json_file: str) -> List[PortalXUser]:

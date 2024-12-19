@@ -27,8 +27,8 @@ class PortalXUser:
     id: str
     username: str
     role: str
-    first_name: str
-    last_name: str
+    firstName: str
+    lastName: str
     email: str
 
     def __init__(self, **kwargs):
@@ -52,7 +52,7 @@ class Response:
                 id=item["id"],
                 username=item["username"],
                 role=item["role"],
-                first_name=item["firstName"],
+                firstName=item["firstName"],
                 last_name=item["lastName"],
                 email=item["email"],
             )

@@ -11,7 +11,7 @@ class TestUserMapper:
         portalx_user = PortalXUser(
             id="123",
             username="testuser",
-            first_name="Test",
+            firstName="Test",
             last_name="User",
             email="test@example.com",
             role="admin",
@@ -33,7 +33,7 @@ class TestUserMapper:
         portalx_user = PortalXUser(
             id="456",
             username="inactiveuser",
-            first_name="Inactive",
+            firstName="Inactive",
             last_name="User",
             email="inactive@example.com",
             role="inactive",
@@ -69,7 +69,7 @@ class TestUserMapper:
         assert isinstance(portalx_user, PortalXUser)
         assert portalx_user.id == "789"
         assert portalx_user.username == "ckanuser"
-        assert portalx_user.first_name == "CKAN"
+        assert portalx_user.firstName == "CKAN"
         assert portalx_user.last_name == "User"
         assert portalx_user.role == "admin"
 

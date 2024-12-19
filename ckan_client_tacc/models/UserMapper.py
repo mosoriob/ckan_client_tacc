@@ -1,3 +1,5 @@
+import secrets
+import string
 from dataclasses import asdict
 from typing import Dict, List
 
@@ -12,14 +14,22 @@ ORG_ALLOCATION_MAPPING = {
 }
 
 
+def generate_password():
+    password_length = 12
+    alphabet = string.ascii_letters + string.digits + string.punctuation
+    return "".join(secrets.choice(alphabet) for _ in range(password_length))
+
+
 class UserMapper:
     @staticmethod
     def map_to_ckan_user_request(portalx_user: PortalXUser) -> CkanUserRequest:
+        print(portalx_user)
+        password = generate_password()
         return CkanUserRequest(
             name=portalx_user.username,
             email=portalx_user.email,
-            password=portalx_user.password,
-            fullname=f"{portalx_user.first_name} {portalx_user.last_name}",
+            password=password,
+            fullname=f"{portalx_user.firstName} {portalx_user.lastName}",
             about=None,
             image_url=None,
             id=None,
@@ -32,7 +42,7 @@ class UserMapper:
         return CkanUser(
             id=portalx_user.id,
             name=portalx_user.username,
-            fullname=f"{portalx_user.first_name} {portalx_user.last_name}",
+            fullname=f"{portalx_user.firstName} {portalx_user.last_name}",
             created="2024-01-01",  # Placeholder, adapt as needed
             about=None,
             activity_streams_email_notifications=False,  # Default value
@@ -55,7 +65,7 @@ class UserMapper:
             id=ckan_user.id,
             username=ckan_user.name,
             role="admin" if ckan_user.sysadmin else "user",
-            first_name=first_name,
+            firstName=first_name,
             last_name=last_name,
             email=ckan_user.email_hash,  # Adjust if email is stored differently
         )
