@@ -32,14 +32,17 @@ def get_or_create_user(user: PortalXUser):
         get_user_by_username(CKAN_URL, API_KEY, user.username)
     except Exception as e:
         ckan_user = UserMapper.map_to_ckan_user_request(user)
-        create_user_api(CKAN_URL, API_KEY, ckan_user)
+        try:
+            create_user_api(CKAN_URL, API_KEY, ckan_user)
+        except Exception as e:
+            print(f"Error creating user {user.username}: {e}")
 
 
 def add_user_to_org(user: PortalXUser, org_id: str):
     print(f"Adding user {user.name} to organization {org_id}")
 
 
-def create_users_on_cr(portalx_users: List[PortalXUser]):
+def create_users_on_ckan(portalx_users: List[PortalXUser]):
     for portalx_user in portalx_users:
         get_or_create_user(portalx_user)
 
@@ -47,7 +50,7 @@ def create_users_on_cr(portalx_users: List[PortalXUser]):
 def sync_tacc_allocations_org(org_id: OrganizationEnum, json_file: str):
     print(f"Syncing {org_id} allocations from folder {json_file}")
     tacc_users = read_tacc_allocation_users(json_file)
-    create_users_on_cr(tacc_users)
+    create_users_on_ckan(tacc_users)
 
 
 def read_tacc_allocation_users(json_file: str) -> List[PortalXUser]:
