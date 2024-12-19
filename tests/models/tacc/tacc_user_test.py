@@ -1,16 +1,18 @@
 import pytest
 
-from ckan_client_tacc.models.tacc.user import Response, TaccUser
+from ckan_client_tacc.models.portalx.user import PortalXUser, Response
 
 
 def test_tacc_user_creation():
-    user = TaccUser(
-        id="123",
-        username="testuser",
-        role="user",
-        first_name="Test",
-        last_name="User",
-        email="test@example.com",
+    user = PortalXUser.from_dict(
+        data={
+            "id": "123",
+            "username": "testuser",
+            "role": "user",
+            "first_name": "Test",
+            "last_name": "User",
+            "email": "test@example.com",
+        }
     )
 
     assert user.id == "123"

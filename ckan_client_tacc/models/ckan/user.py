@@ -15,8 +15,15 @@ class CkanUser:
     image_url: str | None
     display_name: str
     email_hash: str
+    email: str | None
     number_created_packages: int
     image_display_url: str | None
+    apikey: str | None
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "CkanUser":
+        print(data)
+        return cls(**data)
 
 
 @dataclass

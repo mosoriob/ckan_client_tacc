@@ -2,6 +2,8 @@ from typing import Dict, Optional
 
 import requests
 
+from ckan_client_tacc.models.ckan.user import CkanUser
+
 
 def get_user_by_username(ckan_url: str, api_key: str, username: str) -> Optional[Dict]:
     url = f"{ckan_url}/api/3/action/user_show"
@@ -14,7 +16,7 @@ def get_user_by_username(ckan_url: str, api_key: str, username: str) -> Optional
         raise e
 
 
-def get_user_by_id(ckan_url: str, api_key: str, user_id: str) -> Optional[Dict]:
+def get_user_by_id(ckan_url: str, api_key: str, user_id: str) -> Optional[CkanUser]:
     """
     Retrieve user information by user ID from CKAN.
 
@@ -32,7 +34,7 @@ def get_user_by_id(ckan_url: str, api_key: str, user_id: str) -> Optional[Dict]:
         response.raise_for_status()
 
         data = response.json()
-        return data["result"] if data["success"] else None
+        return CkanUser.from_dict(data["result"]) if data["success"] else None
 
     except requests.exceptions.RequestException as e:
         print(f"Error fetching user: {e}")
