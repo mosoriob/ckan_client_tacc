@@ -16,6 +16,8 @@ def test_user_from_dict():
         "email_hash": "0ad932be14d60f084f1ad68c5a75bd2f",
         "number_created_packages": 0,
         "image_display_url": None,
+        "apikey": None,
+        "email": "lafletch@example.com",
     }
 
     user = CkanUser(**user_dict)
