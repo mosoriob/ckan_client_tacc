@@ -17,10 +17,12 @@ class Member:
     role: str  # 'Admin' or 'Member'
 
 
-def add_user_to_org(ckan_url: str, api_key: str, user: CkanUser, org_id: str):
+def add_user_to_org(
+    ckan_url: str, api_key: str, user: CkanUser, org_id: str, role: str
+):
     url = f"{ckan_url}/api/3/action/organization_member_create"
     headers = {"Authorization": api_key, "Content-Type": "application/json"}
-    data = {"id": org_id, "username": user.name, "role": "member"}
+    data = {"id": org_id, "username": user.name, "role": role}
     response = requests.post(url, headers=headers, json=data)
     response.raise_for_status()
     return response.json()
