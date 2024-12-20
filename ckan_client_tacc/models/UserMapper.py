@@ -5,13 +5,7 @@ from typing import Dict, List
 
 from ckan_client_tacc.client.users.create import CkanUserRequest
 from ckan_client_tacc.models.ckan.user import CkanUser
-from ckan_client_tacc.models.portalx.user import PortalXUser
-
-ORG_ALLOCATION_MAPPING = {
-    "planet-texas-2050": "BCS2411",
-    "setx-uifl": "CA23001",
-    "dynamo": "BCS24008",
-}
+from ckan_client_tacc.models.portalx.user import ORG_ALLOCATION_MAPPING, PortalXUser
 
 
 def generate_password():

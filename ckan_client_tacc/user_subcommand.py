@@ -12,7 +12,7 @@ from ckan_client_tacc.client.organizations.members.add import (
 from ckan_client_tacc.client.users.create import create_user_api
 from ckan_client_tacc.client.users.get import get_user_by_id, get_user_by_username
 from ckan_client_tacc.models.portalx.user import OrganizationEnum, PortalXUser, Response
-from ckan_client_tacc.models.UserMapper import UserMapper
+from ckan_client_tacc.models.UserMapper import ORG_ALLOCATION_MAPPING, UserMapper
 
 app = typer.Typer()
 
@@ -33,7 +33,9 @@ def create_user(user: PortalXUser):
 def get_or_create_user(user: PortalXUser):
     try:
         get_user_by_username(CKAN_URL, API_KEY, user.username)
-        print(f"{Fore.YELLOW}👤 User {user.username} already exists{Style.RESET_ALL}")
+        print(
+            f"{Fore.YELLOW}👤 User {Fore.GREEN}{user.username}{Fore.YELLOW} already exists{Style.RESET_ALL}"
+        )
     except Exception as e:
         ckan_user = UserMapper.map_to_ckan_user_request(user)
         try:
@@ -57,8 +59,9 @@ def create_users_on_ckan(portalx_users: List[PortalXUser]):
 
 
 def sync_tacc_allocations_org(org_id: OrganizationEnum, json_file: str):
+    org_name = ORG_ALLOCATION_MAPPING[org_id]
     print(
-        f"{Fore.BLUE}🔄 Syncing {org_id} allocations from folder {json_file}{Style.RESET_ALL}"
+        f"{Fore.BLUE}🔄 Syncing {Fore.YELLOW}{org_name}{Fore.BLUE} allocations from folder {json_file}{Style.RESET_ALL}"
     )
     tacc_users = read_tacc_allocation_users(json_file)
     create_users_on_ckan(tacc_users)
