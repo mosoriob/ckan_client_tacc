@@ -9,8 +9,8 @@ def test_tacc_user_creation():
             "id": "123",
             "username": "testuser",
             "role": "user",
-            "first_name": "Test",
-            "last_name": "User",
+            "firstName": "Test",
+            "lastName": "User",
             "email": "test@example.com",
         }
     )
@@ -19,7 +19,7 @@ def test_tacc_user_creation():
     assert user.username == "testuser"
     assert user.role == "user"
     assert user.firstName == "Test"
-    assert user.last_name == "User"
+    assert user.lastName == "User"
     assert user.email == "test@example.com"
 
 
