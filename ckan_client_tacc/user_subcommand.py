@@ -1,19 +1,16 @@
 import json
 import os
+from enum import Enum
 from typing import List
 
 import typer
 from colorama import Fore, Style, init
 
-from ckan_client_tacc.client.organizations.members.add import (
-    add_user_to_org,
-    convert_member_to_user,
-    get_members,
-)
+from ckan_client_tacc.client.organizations.members.add import add_user_to_org
 from ckan_client_tacc.client.users.create import create_user_api
-from ckan_client_tacc.client.users.get import get_user_by_id, get_user_by_username
+from ckan_client_tacc.client.users.get import get_user_by_username
 from ckan_client_tacc.models.ckan.user import CkanUser
-from ckan_client_tacc.models.portalx.user import OrganizationEnum, PortalXUser, Response
+from ckan_client_tacc.models.portalx.user import OrganizationEnum, PortalXUser
 from ckan_client_tacc.models.UserMapper import ORG_ALLOCATION_MAPPING, UserMapper
 
 app = typer.Typer()
@@ -26,6 +23,12 @@ if not API_KEY or not CKAN_URL:
     exit(1)
 
 init()  # Initialize colorama
+
+# Add new Role enum
+class Role(str, Enum):
+    MEMBER = "member"
+    EDITOR = "editor"
+    ADMIN = "admin"
 
 
 def create_user(user: PortalXUser):
@@ -63,7 +66,7 @@ def create_users_on_ckan(portalx_users: List[PortalXUser]) -> List[CkanUser]:
     return ckan_users
 
 
-def add_users_to_org(ckan_users: List[CkanUser], org_id: str):
+def add_users_to_org(ckan_users: List[CkanUser], org_id: str, role: Role = Role.MEMBER):
     error = 0
     for ckan_user in ckan_users:
         if ckan_user is None:
@@ -73,10 +76,10 @@ def add_users_to_org(ckan_users: List[CkanUser], org_id: str):
             error += 1
         else:
             print(
-                f"{Fore.BLUE}👤 Adding user {Fore.GREEN}{ckan_user.name}{Fore.BLUE} to organization {Fore.GREEN}{org_id}{Style.RESET_ALL}"
+                f"{Fore.BLUE}👤 Adding user {Fore.GREEN}{ckan_user.name}{Fore.BLUE} to organization {Fore.GREEN}{org_id}{Fore.BLUE} as {Fore.GREEN}{role.value}{Style.RESET_ALL}"
             )
             try:
-                add_user_to_org(CKAN_URL, API_KEY, ckan_user, org_id)
+                add_user_to_org(CKAN_URL, API_KEY, ckan_user, org_id, role.value)
             except Exception as e:
                 print(
                     f"{Fore.RED}❌ Error adding user {ckan_user.name} to organization {org_id}: {e}{Style.RESET_ALL}"
@@ -90,23 +93,25 @@ def add_users_to_org(ckan_users: List[CkanUser], org_id: str):
         )
 
 
-def sync_tacc_allocations_org(org_id: OrganizationEnum, json_file: str):
+def sync_tacc_allocations_org(
+    org_id: OrganizationEnum, json_file: str, role: Role = Role.MEMBER
+):
     org_name = ORG_ALLOCATION_MAPPING[org_id]
     print(
         f"{Fore.BLUE}🔄 Syncing {Fore.YELLOW}{org_name}{Fore.BLUE} allocations from folder {json_file}{Style.RESET_ALL}"
     )
     tacc_users = read_tacc_allocation_users(json_file)
     ckan_users = create_users_on_ckan(tacc_users)
-    add_users_to_org(ckan_users, org_id.value)
+    add_users_to_org(ckan_users, org_id.value, role)
 
 
 def read_tacc_allocation_users(json_file: str) -> List[PortalXUser]:
-    with open(json_file, "r") as f:
+    with open(json_file, "r", encoding="utf-8") as f:
         return [PortalXUser(**user) for user in json.load(f)["response"]]
 
 
 def read_allocation_file(json_file: str) -> dict:
-    with open(json_file, "r") as f:
+    with open(json_file, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -114,6 +119,6 @@ def read_allocation_file(json_file: str) -> dict:
     name="sync",
     help="Sync users from TACC allocations to CKAN organizations",
 )
-def sync(organization: OrganizationEnum, json_file: str):
-    sync_tacc_allocations_org(organization, json_file)
+def sync(organization: OrganizationEnum, json_file: str, role: Role = Role.MEMBER):
+    sync_tacc_allocations_org(organization, json_file, role)
     # print(f"Synced {organization} allocations from folder {json_file}")
