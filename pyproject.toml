@@ -45,7 +45,7 @@ pytest = "^6.2.5"
 pytest-html = "^3.1.1"
 pytest-cov = "^3.0.0"
 bandit = "^1.7.1"
-black = "^22.12"
+black = "^24.10"
 isort = {extras = ["colors"], version = "^5.10.1"}
 pre-commit = "^2.15.0"
 coverage = "^6.1.2"
