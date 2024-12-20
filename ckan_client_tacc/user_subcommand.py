@@ -65,8 +65,15 @@ def create_users_on_ckan(portalx_users: List[PortalXUser]) -> List[CkanUser]:
 
 def add_users_to_org(ckan_users: List[CkanUser], org_id: str):
     for ckan_user in ckan_users:
-        print(f"Adding user {ckan_user.name} to organization {org_id}")
-        add_user_to_org(CKAN_URL, API_KEY, ckan_user, org_id)
+        print(
+            f"{Fore.BLUE}👤 Adding user {Fore.GREEN}{ckan_user.name}{Fore.BLUE} to organization {Fore.GREEN}{org_id}{Style.RESET_ALL}"
+        )
+        try:
+            add_user_to_org(CKAN_URL, API_KEY, ckan_user, org_id)
+        except Exception as e:
+            print(
+                f"{Fore.RED}❌ Error adding user {ckan_user.name} to organization {org_id}: {e}{Style.RESET_ALL}"
+            )
     print(
         f"{Fore.CYAN}➕ Added {len(ckan_users)} users to organization {org_id}{Style.RESET_ALL}"
     )
@@ -79,7 +86,7 @@ def sync_tacc_allocations_org(org_id: OrganizationEnum, json_file: str):
     )
     tacc_users = read_tacc_allocation_users(json_file)
     ckan_users = create_users_on_ckan(tacc_users)
-    add_users_to_org(ckan_users, org_id)
+    add_users_to_org(ckan_users, org_id.value)
 
 
 def read_tacc_allocation_users(json_file: str) -> List[PortalXUser]:
