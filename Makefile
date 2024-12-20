@@ -36,7 +36,7 @@ test:
 
 .PHONY: check-codestyle
 check-codestyle:
-	poetry run isort --diff --check-only --settings-path pyproject.toml --skip venv ./
+poetry run isort --diff --check-only --settings-path pyproject.toml --skip venv ./
 	poetry run black --diff --check --config pyproject.toml --extend-exclude venv ./
 
 .PHONY: check-safety
