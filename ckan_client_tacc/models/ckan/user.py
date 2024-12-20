@@ -20,9 +20,12 @@ class CkanUser:
     image_display_url: str | None
     apikey: str | None
 
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
     @classmethod
     def from_dict(cls, data: dict) -> "CkanUser":
-        print(data)
         return cls(**data)
 
 

@@ -17,7 +17,6 @@ def generate_password():
 class UserMapper:
     @staticmethod
     def map_to_ckan_user_request(portalx_user: PortalXUser) -> CkanUserRequest:
-        print(portalx_user)
         password = generate_password()
         return CkanUserRequest(
             name=portalx_user.username,
