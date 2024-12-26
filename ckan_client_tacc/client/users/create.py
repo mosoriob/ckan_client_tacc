@@ -55,7 +55,6 @@ def create_user_api(api_url: str, api_key: str, user_data: CkanUserRequest) -> D
         response = requests.post(
             endpoint, headers=headers, data=json.dumps(user_data.to_dict())
         )
-        print(response.json())
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:

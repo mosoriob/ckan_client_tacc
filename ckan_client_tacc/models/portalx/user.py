@@ -37,7 +37,6 @@ class PortalXUser:
 
     @classmethod
     def from_dict(cls, data: dict) -> "PortalXUser":
-        print(data)
         return cls(**data)
 
 
